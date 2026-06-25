@@ -1,0 +1,4 @@
+.DS_Store
+FocusBreakTimer-runtime.log
+build/
+*.app/
