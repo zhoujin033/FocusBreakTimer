@@ -29,6 +29,14 @@
 
 ## 使用
 
+### 直接下载安装
+
+在 [GitHub Releases](https://github.com/zhoujin033/FocusBreakTimer/releases/latest) 下载 `.dmg`，打开后将“学习休息倒计时”拖到“Applications（应用程序）”。也可以下载 `.zip` 后解压安装，无需编译或安装开发工具。安装包支持 macOS 13 及以上，同时兼容 Apple 芯片和 Intel Mac。
+
+升级前先退出旧版再替换 App，学习记录和设置会保留。当前安装包尚未使用 Apple Developer ID 签名或苹果公证，首次打开可能被 macOS 拦截；确认来自本仓库后，可按 [Apple 官方说明](https://support.apple.com/zh-cn/102445) 在“系统设置 → 隐私与安全性”中允许打开，不要关闭系统安全保护。
+
+### 当前版本
+
 版本 `3.7.3` 将标题、圆环和主按钮作为整体居中，平衡结束选择界面的上下留白；背景与次按钮改为中性炭灰，圆环与主按钮使用柔和绿色，去除偏蓝的底色。两个状态仍共用布局和按钮样式。
 
 当前构建号为 `36`，已撤回后续两次外观尝试，恢复完整的 `3.7.3` 界面；学习设置、统计记录与计时功能保留。
@@ -88,6 +96,17 @@ AppIconPreview.png
 ```text
 学习休息倒计时.app
 ```
+
+## 打包发布
+
+在 Mac 上构建同时支持 Apple 芯片和 Intel 的安装包：
+
+```sh
+UNIVERSAL_BUILD=1 bash build.sh
+bash scripts/package_app.sh
+```
+
+DMG、ZIP 和校验文件生成在 `build/release/`，不提交到源码仓库。更新 `Info.plist` 和 `RELEASE_NOTES.md` 后，推送与应用版本一致的 `v版本号` 标签，GitHub Actions 会自动测试、构建并发布到 Releases；全部文件上传成功后才公开发布。
 
 ## 回归测试
 

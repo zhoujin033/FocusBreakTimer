@@ -17,7 +17,13 @@ mkdir -p "$BUILD_DIR/tmp"
 export CLANG_MODULE_CACHE_PATH="$BUILD_DIR/ModuleCache"
 export TMPDIR="$BUILD_DIR/tmp"
 
+ARCH_FLAGS=(-arch "$(uname -m)")
+if [[ "${UNIVERSAL_BUILD:-0}" == "1" ]]; then
+  ARCH_FLAGS=(-arch arm64 -arch x86_64)
+fi
+
 clang \
+  "${ARCH_FLAGS[@]}" \
   -fobjc-arc \
   -mmacosx-version-min=13.0 \
   "$ROOT_DIR/Sources/main.m" \
