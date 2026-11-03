@@ -1,4 +1,15 @@
 #import <Cocoa/Cocoa.h>
+#import "../Sources/BreakTimerPolicy.h"
+
+// Keep simulated past timestamps positive on freshly booted CI runners.
+static NSTimeInterval ControllerTestContinuousTime(void) {
+    static NSTimeInterval origin;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{ origin = BreakTimerContinuousTime(); });
+    return 10000 + BreakTimerContinuousTime() - origin;
+}
+
+#define BreakTimerContinuousTime ControllerTestContinuousTime
 #define FOCUS_BREAK_TIMER_DISABLE_APP_MAIN 1
 #import "../Sources/main.m"
 
