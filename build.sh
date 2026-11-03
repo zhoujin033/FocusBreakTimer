@@ -21,8 +21,16 @@ clang \
   -fobjc-arc \
   -mmacosx-version-min=13.0 \
   "$ROOT_DIR/Sources/main.m" \
+  "$ROOT_DIR/Sources/BreakTimerPolicy.m" \
+  "$ROOT_DIR/Sources/DisplayPowerController.m" \
+  "$ROOT_DIR/Sources/EmergencySkipQuotaStore.m" \
+  "$ROOT_DIR/Sources/MeetingScheduleStore.m" \
+  "$ROOT_DIR/Sources/RestObligationStore.m" \
+  "$ROOT_DIR/Sources/StudyHistoryStore.m" \
+  "$ROOT_DIR/Sources/StudyStatisticsCalculator.m" \
+  "$ROOT_DIR/Sources/StudyStatisticsWindowController.m" \
   -o "$MACOS_DIR/FocusBreakTimer" \
-  -framework Cocoa
+  -framework Cocoa -framework IOKit
 
 clang \
   -fobjc-arc \
