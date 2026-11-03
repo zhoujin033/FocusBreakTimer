@@ -33,7 +33,19 @@ jobs:
           test "$GITHUB_REF_NAME" = "v$VERSION"
 
       - name: Run regression tests
-        run: bash test.sh
+        shell: bash
+        run: |
+          if bash test.sh > "$RUNNER_TEMP/test-output.log" 2>&1; then
+            cat "$RUNNER_TEMP/test-output.log"
+          else
+            cat "$RUNNER_TEMP/test-output.log"
+            while IFS= read -r line; do
+              line=${line//'%'/'%25'}
+              line=${line//$'\r'/'%0D'}
+              printf '::error title=Regression test output::%s\n' "$line"
+            done < "$RUNNER_TEMP/test-output.log"
+            exit 1
+          fi
 
       - name: Build for Apple Silicon and Intel
         run: UNIVERSAL_BUILD=1 bash build.sh
